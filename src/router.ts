@@ -85,19 +85,21 @@ export abstract class Router {
     switch (trade.tradeType) {
       case TradeType.EXACT_INPUT:
         if (etherIn) {
-          methodName = useFeeOnTransfer ? 'swapExactBNBForTokensSupportingFeeOnTransferTokens' : 'swapExactBNBForTokens'
+          methodName = useFeeOnTransfer ?  "swapExactWDOGEForTokensSupportingFeeOnTransferTokens"
+                        : "swapExactWDOGEForTokens";
           // (uint amountOutMin, address[] calldata path, address to, uint deadline)
           args = [amountOut, path, to, deadline]
           value = amountIn
         } else if (etherOut) {
-          methodName = useFeeOnTransfer ? 'swapExactTokensForBNBSupportingFeeOnTransferTokens' : 'swapExactTokensForBNB'
+          methodName = useFeeOnTransfer  ? "swapExactTokensForWDOGESupportingFeeOnTransferTokens"
+                        : "swapExactTokensForWDOGE";
           // (uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline)
           args = [amountIn, amountOut, path, to, deadline]
           value = ZERO_HEX
         } else {
           methodName = useFeeOnTransfer
-            ? 'swapExactTokensForTokensSupportingFeeOnTransferTokens'
-            : 'swapExactTokensForTokens'
+             ? "swapExactTokensForTokensSupportingFeeOnTransferTokens"
+                        : "swapExactTokensForTokens";
           // (uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline)
           args = [amountIn, amountOut, path, to, deadline]
           value = ZERO_HEX
@@ -106,12 +108,12 @@ export abstract class Router {
       case TradeType.EXACT_OUTPUT:
         invariant(!useFeeOnTransfer, 'EXACT_OUT_FOT')
         if (etherIn) {
-          methodName = 'swapBNBForExactTokens'
+          methodName = 'swapWDOGEForExactTokens'
           // (uint amountOut, address[] calldata path, address to, uint deadline)
           args = [amountOut, path, to, deadline]
           value = amountIn
         } else if (etherOut) {
-          methodName = 'swapTokensForExactBNB'
+          methodName = 'swapTokensForExactWDOGE'
           // (uint amountOut, uint amountInMax, address[] calldata path, address to, uint deadline)
           args = [amountOut, amountIn, path, to, deadline]
           value = ZERO_HEX
